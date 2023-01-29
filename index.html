@@ -18,14 +18,15 @@
           <h1 class="col banner-col">Weather Dashboard</h1>
         </div>
     </header>
-      
-        <!-- Columns start at 50% wide on mobile and bump up to 33.3% wide on desktop -->
         <main class="row">
           <section class="col-4" id="search-section">
             <h2 class="search-heading">Search for a City</h2>
-            <div class="search-div"><input class="search-input"></div>
-            <button class="search-btn" id="search-btn">Search</button>
+            <form id="search-form">
+              <input class="search-input" name="city" type="text" id="city" value="">
+              <button class="search-btn" id="search-btn">Search</button>
+            </form>
           </section>
+          
           
           <section class="col-8" id="forecast-section">
             <h2 class="text-center">Current City</h2>
@@ -36,7 +37,7 @@
             <h3 class="past-search-heading">Past Searches</h3>
             <div class="past-cards" id="past-cards"></div>
           </section>
-          
+                     
           <section class="col-8 forecast-cards" id="forecast-cards">Forecast Cards</section>
         </main>
 
