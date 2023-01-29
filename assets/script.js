@@ -9,6 +9,7 @@ Fetched information must be then stored in localStorage and once replaced, it sh
 */
 let cityName = document.getElementById('city');
 let currentCity = document.getElementById('current-section');
+let forecastSection = document.getElementById('forecast-section');
 const searchBtn = document.getElementById('search-btn');
 
 
@@ -20,11 +21,11 @@ var submitRequest = function (event) {
 
     if (cityInput) {
         getCityWeather(cityInput);
-        currentCity.textContent = '';
-        cityName.value = '';
+        getForecast(cityInput);
     }   else {
         alert('PLease enter a city name');
     }
+    cityName.value = '';
 };
 
 const getCityWeather = (city) => {
@@ -32,7 +33,7 @@ const getCityWeather = (city) => {
     fetch(requestUrl).then(function (response) {
         if (response.ok) {
             console.log(response);
-         }
+         };
             response.json().then(function (data) {
                 console.log(data); 
                 console.log(data.name, data.weather[0].main, data.main.temp);
@@ -45,6 +46,18 @@ const getCityWeather = (city) => {
                 currentCity.appendChild(cityHeading);
                 currentCity.appendChild(cityWeather);
                 currentCity.appendChild(cityTemp);
+            });
+    });
+};
+
+const getForecast = (city) => {
+    const forecastUrl = 'https://api.openweathermap.org/data/2.5/forecast/daily?q=' + city + '&cnt=5&appid=3f84325a852afcf6282b9ff4cc366d95&units=metric';
+    fetch(forecastUrl).then(function (response) {
+        if (response.ok) {
+            console.log(response);
+        };
+            response.json().then(function (data) {
+                console.log(data);
             });
     });
 };
