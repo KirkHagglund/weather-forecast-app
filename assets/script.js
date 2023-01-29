@@ -39,13 +39,12 @@ const getCityWeather = (city) => {
                 console.log(data); 
                 console.log(data.name, data.weather[0].icon, data.main.temp);
                 let cityHeading = document.createElement('h3');
-                let cityWeather = document.createElement('p');
+                let cityWeather = document.createElement('img');
                 let cityTemp = document.createElement('p');
                 let cityHumidity = document.createElement('p');
                 let cityWind = document.createElement('p');
-                cityHeading.textContent = data.name + ' ' + today.format('MMM D, YYYY');
+                cityHeading.textContent = data.name + ' ' + today.format('MMM D, YYYY') /*+ img.src; "http://openweathermap.org/img/wn/' + cityWeather + '@2x.png'*/;
                 cityTemp.textContent = 'Temp: ' + Math.floor(data.main.temp) + '°C';
-                cityWeather.textContent = data.weather[0].icon;
                 cityHumidity.textContent = 'Humidity: ' + data.main.humidity + '%';
                 cityWind.textContent = 'Wind: ' + data.wind.speed + ' KmPH'                            
                 currentCity.appendChild(cityHeading);
