@@ -44,6 +44,7 @@ h2 {
 
 .search-input {
     border-radius: 5px;
+    color: var(--secondaryfont);
 }
 
 .search-btn {
@@ -66,7 +67,7 @@ h2 {
     text-align: center;
 }
 
-#forecast-section {
+#current-section {
     border: 1px solid var(--secondaryfont);
     border-radius: 5px;
     width: 60%;
