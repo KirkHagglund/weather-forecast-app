@@ -9,7 +9,8 @@ var today = dayjs();
 //Function tied to event listener
 var submitRequest = function (event) {
     event.preventDefault();
-    
+    forecastSection.textContent = "";
+    currentCity.textContent = "";
     var cityInput = cityName.value;
 
     if (cityInput) {
@@ -17,7 +18,7 @@ var submitRequest = function (event) {
         getForecast(cityInput);
     }   else {
         alert('PLease enter a city name');
-    }
+    };
     cityName.value = '';
 };
 
@@ -96,9 +97,6 @@ const getForecast = (city) => {
             });
     });
 };
-
-
-
 
 //Event listener to trigger fetch calls
 searchBtn.addEventListener('click', submitRequest);
