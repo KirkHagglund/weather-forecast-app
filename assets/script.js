@@ -1,12 +1,4 @@
-/* TODO:
-
-When typing a city into the input form, click needs to generate two fetches.
-The first fetch brings up current weather, appending it to the #current-section
-The second fetch brings up the five day forecast, appending it to the #forecast-section
-Requires an addEventListener
-Fetched information must be then stored in localStorage and once replaced, it should populate inside the #past-searches section
-
-*/
+//Variable assignment section
 let cityName = document.getElementById('city');
 let currentCity = document.getElementById('current-section');
 let forecastSection = document.getElementById('forecast-section');
@@ -14,7 +6,7 @@ const searchBtn = document.getElementById('search-btn');
 let pastSearch = document.getElementById('past-card');
 var today = dayjs();
 
-
+//Function tied to event listener
 var submitRequest = function (event) {
     event.preventDefault();
     
@@ -29,6 +21,7 @@ var submitRequest = function (event) {
     cityName.value = '';
 };
 
+//Current weather function
 const getCityWeather = (city) => {
     const requestUrl = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=3f84325a852afcf6282b9ff4cc366d95&units=metric';
     fetch(requestUrl).then(function (response) {
@@ -43,11 +36,15 @@ const getCityWeather = (city) => {
                 let cityTemp = document.createElement('p');
                 let cityHumidity = document.createElement('p');
                 let cityWind = document.createElement('p');
-                cityHeading.textContent = data.name + ' ' + today.format('MMM D, YYYY') /*+ img.src; "http://openweathermap.org/img/wn/' + cityWeather + '@2x.png'*/;
+                
+                cityHeading.textContent = data.name + ' ' + today.format('MMM D, YYYY');
                 cityTemp.textContent = 'Temp: ' + Math.floor(data.main.temp) + '°C';
                 cityHumidity.textContent = 'Humidity: ' + data.main.humidity + '%';
-                cityWind.textContent = 'Wind: ' + data.wind.speed + ' KmPH'                            
+                cityWind.textContent = 'Wind: ' + data.wind.speed + ' KmPH';
+                cityWeather.src = 'http://openweathermap.org/img/wn/' + (data.weather[0].icon) + '@2x.png';                            
+                
                 currentCity.appendChild(cityHeading);
+                currentCity.appendChild(cityWeather);
                 currentCity.appendChild(cityTemp);
                 currentCity.appendChild(cityHumidity);
                 currentCity.appendChild(cityWind);               
@@ -55,6 +52,7 @@ const getCityWeather = (city) => {
     });
 };
 
+//Five day forecast function
 const getForecast = (city) => {
     const forecastUrl = 'https://api.openweathermap.org/data/2.5/forecast?q=' + city + '&appid=3f84325a852afcf6282b9ff4cc366d95&units=metric';
     fetch(forecastUrl).then(function (response) {
@@ -63,8 +61,44 @@ const getForecast = (city) => {
         };
             response.json().then(function (data) {
                 console.log(data);
+                let forecastArray = [data.list[7], data.list[15], data.list[23], data.list[31], data.list[39]];
+                console.log(forecastArray);
+
+                for (i=0; i<forecastArray.length; i++) {
+                    let forecastHeading = document.createElement('h4');
+                    let forecastWeather = document.createElement('img');
+                    let forecastTemp = document.createElement('p');
+                    let forecastHumidity = document.createElement('p');
+                    let forecastCard = document.createElement('div');
+                    let unixTimestamp = forecastArray[i].dt;
+                    let milliseconds = unixTimestamp * 1000;
+                    let dateObject = new Date(milliseconds);
+                    let humanDayFormat = dateObject.toLocaleString('en-us', {weekday: 'short'});
+                    let humanDateFormat = dateObject.toLocaleString('en-us', {day: 'numeric'});
+                    let humanMonthFormat = dateObject.toLocaleString('en-us', {month: 'short'});
+                    forecastCard.style.width = '19%';
+                    forecastCard.style.height = 'fit-content';
+                    forecastCard.style.backgroundColor = 'rgb(24, 24, 143)';
+                    forecastCard.style.color = 'rgb(192, 205, 241)';
+                    forecastCard.style.margin = '3px';
+                    forecastWeather.style.height = '75px';
+                    forecastHeading.textContent = humanDayFormat + ' ' + humanDateFormat + ' ' + humanMonthFormat;
+                    forecastTemp.textContent = 'Temp: ' + Math.floor(forecastArray[i].main.temp) + '°C';
+                    forecastHumidity.textContent = 'Humidity: ' + forecastArray[i].main.humidity + '%';
+                    forecastWeather.src = 'http://openweathermap.org/img/wn/' + (forecastArray[i].weather[0].icon) + '@2x.png';
+
+                    forecastSection.appendChild(forecastCard);
+                    forecastCard.appendChild(forecastHeading);
+                    forecastCard.appendChild(forecastWeather);
+                    forecastCard.appendChild(forecastTemp);
+                    forecastCard.appendChild(forecastHumidity);
+                };          
             });
     });
 };
 
+
+
+
+//Event listener to trigger fetch calls
 searchBtn.addEventListener('click', submitRequest);

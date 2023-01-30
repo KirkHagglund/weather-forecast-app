@@ -71,6 +71,13 @@ h2 {
     border: 1px solid var(--secondaryfont);
     border-radius: 5px;
     width: 60%;
+    background-color: var(--mainfont);
+}
+
+#forecast-section {
+    display: inline-flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
 }
 
 #footer-section {
