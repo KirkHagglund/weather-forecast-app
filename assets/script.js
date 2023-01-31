@@ -5,7 +5,7 @@ let forecastSection = document.getElementById('forecast-section');
 const searchBtn = document.getElementById('search-btn');
 const pastSearches = document.getElementById('past-searches');
 let pastCard = document.getElementById('past-cards');
-let localStorageArr = [];
+let localStorageArr = JSON.parse(localStorage.getItem('cities')) || [];
 var today = dayjs();
 
 //Function tied to event listener
@@ -24,14 +24,15 @@ var submitRequest = function (event) {
     cityName.value = '';
 };
 
-/*var recallRequest = function (event) {
+var recallRequest = function (event) {
     event.preventDefault();
 
-    var recallInput = button.textContent;
+    var recallInput = pastCard.button;
+    console.log(recallInput);
 
-    getCityWeather(recallInput);
-    getForecast(recallInput);
-}*/
+   /* getCityWeather(recallInput);
+    getForecast(recallInput);*/
+}
 
 //Current weather function
 const getCityWeather = (city) => {
@@ -62,8 +63,6 @@ const getCityWeather = (city) => {
                 currentCity.appendChild(cityWind);
                 
                 //Local Storage Section
-
-                //let pastCities = JSON.parse(localStorage.getItem('cities')) || [];
                 let pastCity = data.name;
                 console.log(pastCity);
                 localStorageArr.push(pastCity);
@@ -124,19 +123,19 @@ const getForecast = (city) => {
 };
 
 const getLocalStorage = function() {
-    JSON.parse(localStorage.getItem('cities'));
-    for (i = 0; i < citiesArray; i++) {
+    //JSON.parse(localStorage.getItem('cities'));
+    for (i = 0; i < localStorageArr.length; i++) {
         const button = document.createElement("button");
                 button.classList.add("past-search-btn");
-                button.textContent = citiesArray[i];
+                button.textContent = localStorageArr[i];
                 button.setAttribute('class', 'search-card');
                 pastCard.appendChild(button);
-    }
-}
+    };
+};
 
 //Event listener to trigger fetch calls
 searchBtn.addEventListener('click', submitRequest);
 
-//pastCard.addEventListener('click', recallRequest);
+pastCard.addEventListener('click', recallRequest);
 
 getLocalStorage();
