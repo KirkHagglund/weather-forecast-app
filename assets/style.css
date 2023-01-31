@@ -91,3 +91,20 @@ h2 {
     justify-content: center;
     background: linear-gradient(175deg, var(--mainfont), var(--banner) 40%);
 }
+
+#past-cards {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.search-card {
+    background-color: var(--banner);
+    color: var(--mainfont);
+    width: 75%;
+    height: 40px;
+    border-radius: 5px;
+    margin-top: 10px;
+}

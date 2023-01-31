@@ -3,7 +3,9 @@ let cityName = document.getElementById('city');
 let currentCity = document.getElementById('current-section');
 let forecastSection = document.getElementById('forecast-section');
 const searchBtn = document.getElementById('search-btn');
-let pastSearch = document.getElementById('past-card');
+const pastSearches = document.getElementById('past-searches');
+let pastCard = document.getElementById('past-cards');
+
 var today = dayjs();
 
 //Function tied to event listener
@@ -21,6 +23,13 @@ var submitRequest = function (event) {
     };
     cityName.value = '';
 };
+
+var recallRequest = function (event) {
+    event.preventDefault();
+
+    getCityWeather(button.textContent);
+    getForecast(button.textContent);
+}
 
 //Current weather function
 const getCityWeather = (city) => {
@@ -48,7 +57,26 @@ const getCityWeather = (city) => {
                 currentCity.appendChild(cityWeather);
                 currentCity.appendChild(cityTemp);
                 currentCity.appendChild(cityHumidity);
-                currentCity.appendChild(cityWind);               
+                currentCity.appendChild(cityWind);
+                
+                //Local Storage Section
+                const searchedCityObject = {
+                    name: data.name
+                }
+
+                let pastCities = JSON.parse(localStorage.getItem('cities')) || [];
+
+                pastCities.push(searchedCityObject);
+
+                localStorage.setItem('cities', JSON.stringify(pastCities));   
+                
+                const button = document.createElement("button");
+                button.classList.add("past-search-btn");
+                button.textContent = data.name;
+                button.setAttribute('class', 'search-card');
+                pastCard.appendChild(button);
+
+
             });
     });
 };
@@ -100,3 +128,5 @@ const getForecast = (city) => {
 
 //Event listener to trigger fetch calls
 searchBtn.addEventListener('click', submitRequest);
+
+pastCard.addEventListener('click', recallRequest);
