@@ -123,11 +123,20 @@ const getForecast = (city) => {
     });
 };
 
-
-
-
+const getLocalStorage = function() {
+    JSON.parse(localStorage.getItem('cities'));
+    for (i = 0; i < citiesArray; i++) {
+        const button = document.createElement("button");
+                button.classList.add("past-search-btn");
+                button.textContent = citiesArray[i];
+                button.setAttribute('class', 'search-card');
+                pastCard.appendChild(button);
+    }
+}
 
 //Event listener to trigger fetch calls
 searchBtn.addEventListener('click', submitRequest);
 
 //pastCard.addEventListener('click', recallRequest);
+
+getLocalStorage();
