@@ -24,11 +24,11 @@ var submitRequest = function (event) {
     cityName.value = '';
 };
 
-var recallRequest = function (event) {
+var recallRequest = function (city) { // Use City as input
     event.preventDefault();
     forecastSection.textContent = "";
     currentCity.textContent = "";
-    var cityInput = //WHAT IS THIS
+    var cityInput = city //WHAT IS THIS // assign city
 
     recallForecast(cityInput);
     recallWeather(cityInput);
@@ -205,7 +205,7 @@ const getLocalStorage = function() {
                 button.addEventListener("click", function(event){
                     event.preventDefault();
                     console.log(event.target.textContent);
-                    recallRequest();
+                    recallRequest(event.target.textContent); //Line:208 (Please change like this)
                 })
                 pastCard.appendChild(button);
     };
