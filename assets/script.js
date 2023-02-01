@@ -31,8 +31,8 @@ var recallRequest = function (city) { // Use City as input
     var cityInput = city //WHAT IS THIS // assign city
     console.log(cityInput, 'cityinput');
 
-    //recallForecast(cityInput);
-    //recallWeather(cityInput);
+    recallForecast(cityInput);
+    recallWeather(cityInput);
 }
 
 //Current weather function
@@ -123,7 +123,7 @@ const getForecast = (city) => {
     });
 };
 
-/*const recallWeather = () => {
+const recallWeather = (city) => {
     const requestUrl = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=3f84325a852afcf6282b9ff4cc366d95&units=metric';
     fetch(requestUrl).then(function (response) {
         if (response.ok) {
@@ -153,7 +153,7 @@ const getForecast = (city) => {
     });
 };
 
-const recallForecast = () => {
+const recallForecast = (city) => {
     const forecastUrl = 'https://api.openweathermap.org/data/2.5/forecast?q=' + city + '&appid=3f84325a852afcf6282b9ff4cc366d95&units=metric';
     fetch(forecastUrl).then(function (response) {
         if (response.ok) {
@@ -196,7 +196,7 @@ const recallForecast = () => {
             });
     });
 };
-*/
+
 const getLocalStorage = function() {
     for (i = 0; i < localStorageArr.length; i++) {
         const button = document.createElement("button");
@@ -213,7 +213,7 @@ searchBtn.addEventListener('click', submitRequest);
 pastCard.addEventListener('click', function(event) {
     event.preventDefault();
     console.log(event.target.textContent);
-    recallRequest();
+    recallRequest(event.target.textContent);
 });
 
 getLocalStorage();
