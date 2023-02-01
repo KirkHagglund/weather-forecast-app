@@ -25,13 +25,14 @@ var submitRequest = function (event) {
 };
 
 var recallRequest = function (city) { // Use City as input
-    event.preventDefault();
+    console.log(city, 'city');
     forecastSection.textContent = "";
     currentCity.textContent = "";
     var cityInput = city //WHAT IS THIS // assign city
+    console.log(cityInput, 'cityinput');
 
-    recallForecast(cityInput);
-    recallWeather(cityInput);
+    //recallForecast(cityInput);
+    //recallWeather(cityInput);
 }
 
 //Current weather function
@@ -122,7 +123,7 @@ const getForecast = (city) => {
     });
 };
 
-const recallWeather = (/*THIS GOES HERE*/) => {
+/*const recallWeather = () => {
     const requestUrl = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=3f84325a852afcf6282b9ff4cc366d95&units=metric';
     fetch(requestUrl).then(function (response) {
         if (response.ok) {
@@ -152,7 +153,7 @@ const recallWeather = (/*THIS GOES HERE*/) => {
     });
 };
 
-const recallForecast = (/*THIS GOES HERE*/) => {
+const recallForecast = () => {
     const forecastUrl = 'https://api.openweathermap.org/data/2.5/forecast?q=' + city + '&appid=3f84325a852afcf6282b9ff4cc366d95&units=metric';
     fetch(forecastUrl).then(function (response) {
         if (response.ok) {
@@ -195,23 +196,24 @@ const recallForecast = (/*THIS GOES HERE*/) => {
             });
     });
 };
-
+*/
 const getLocalStorage = function() {
     for (i = 0; i < localStorageArr.length; i++) {
         const button = document.createElement("button");
                 button.classList.add("past-search-btn");
                 button.textContent = localStorageArr[i];
                 button.setAttribute('class', 'search-card');
-                button.addEventListener("click", function(event){
-                    event.preventDefault();
-                    console.log(event.target.textContent);
-                    recallRequest(event.target.textContent); //Line:208 (Please change like this)
-                })
                 pastCard.appendChild(button);
     };
 };
 
 //Event listener to trigger fetch calls
 searchBtn.addEventListener('click', submitRequest);
+
+pastCard.addEventListener('click', function(event) {
+    event.preventDefault();
+    console.log(event.target.textContent);
+    recallRequest();
+});
 
 getLocalStorage();
