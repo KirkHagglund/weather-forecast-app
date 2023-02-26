@@ -70,7 +70,7 @@ const getCityWeather = (city) => {
                 localStorage.setItem('cities', JSON.stringify(localStorageArr));
                 
                 const button = document.createElement("button");
-                button.classList.add("past-search-btn");
+                //button.classList.add("past-search-btn");
                 button.textContent = data.name;
                 button.setAttribute('class', 'search-card');
                 pastCard.appendChild(button);
@@ -200,7 +200,7 @@ const recallForecast = (city) => {
 const getLocalStorage = function() {
     for (i = 0; i < localStorageArr.length; i++) {
         const button = document.createElement("button");
-                button.classList.add("past-search-btn");
+                //button.classList.add("past-search-btn");
                 button.textContent = localStorageArr[i];
                 button.setAttribute('class', 'search-card');
                 pastCard.appendChild(button);
